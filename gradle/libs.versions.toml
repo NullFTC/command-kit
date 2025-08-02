@@ -1,0 +1,20 @@
+[versions]
+ftc = "10.1.1"
+joml = "1.10.8"
+gson = "2.11.0"
+junit = "5.10.0"
+
+[libraries]
+ftc-inspection = { module = "org.firstinspires.ftc:Inspection", version.ref = "ftc" }
+ftc-blocks = { module = "org.firstinspires.ftc:Blocks", version.ref = "ftc"}
+ftc-robotcore = { module = "org.firstinspires.ftc:RobotCore", version.ref = "ftc"}
+ftc-server = { module = "org.firstinspires.ftc:RobotServer", version.ref = "ftc"}
+ftc-obj = { module = "org.firstinspires.ftc:OnBotJava", version.ref = "ftc"}
+ftc-hw = { module = "org.firstinspires.ftc:Hardware", version.ref = "ftc"}
+ftc-common = { module = "org.firstinspires.ftc:FtcCommon", version.ref = "ftc"}
+ftc-vision = { module = "org.firstinspires.ftc:Vision", version.ref = "ftc"}
+
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+joml = { module = "org.joml:joml", version.ref = "joml" }
+
+junit = { module = "org.junit:junit-bom", version.ref = "junit" }
