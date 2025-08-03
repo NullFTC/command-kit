@@ -12,7 +12,7 @@ class ProjectFile(
      */
     data class Expression(
         val exp: String,
-        val `val`: Double
+        val value: Double
     )
 
     /**

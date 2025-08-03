@@ -179,6 +179,9 @@ class Choreo {
     }
 
     companion object {
+        @JvmField
+        val INSTANCE = Choreo()
+
         val LOGGER = LoggerFactory.getLogger("Choreo")
         var CHOREO_DIR = File(AppUtil.FIRST_FOLDER, "/choreo/")
     }

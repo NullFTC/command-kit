@@ -6,7 +6,7 @@ import org.joml.Vector2d
 interface ILocalizer {
     var pose: Pose2D
     var angle: Double
-    var velocity: Vector2d
+    val velocity: Vector2d
 
     fun update()
 }
