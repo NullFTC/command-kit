@@ -2,7 +2,6 @@ import org.gradle.api.JavaVersion
 
 plugins {
     `maven-publish`
-    kotlin("android")
     id("com.android.library")
 }
 
@@ -27,10 +26,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
     testOptions {
         compileOptions {
             sourceCompatibility = JavaVersion.VERSION_11
@@ -38,7 +33,7 @@ android {
         }
     }
 
-    namespace = "dev.nullftc.choreolib"
+    namespace = "dev.nullftc.commandkit"
 }
 
 repositories {
@@ -47,8 +42,6 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk7"))
-
     implementation(libs.ftc.inspection)
     implementation(libs.ftc.blocks)
     implementation(libs.ftc.robotcore)
@@ -62,12 +55,6 @@ dependencies {
     implementation(libs.gson)
 }
 
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
-
 afterEvaluate {
     publishing {
         repositories {
@@ -76,7 +63,7 @@ afterEvaluate {
 
         publications {
             create("maven", MavenPublication::class.java) {
-                from(components["release"])
+//                from(components["release"])
             }
         }
     }
