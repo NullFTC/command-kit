@@ -68,6 +68,10 @@ afterEvaluate {
             maven {
                 name = "nullftcReleases"
                 url = uri("https://maven.nullftc.dev/releases")
+                credentials {
+                    username = System.getenv("MAVEN_NAME") ?: ""
+                    password = System.getenv("MAVEN_SECRET") ?: ""
+                }
             }
         }
 
