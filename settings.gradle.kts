@@ -11,4 +11,6 @@ plugins {
 }
 
 rootProject.name = "commandkit"
+
 include("common")
+include("ktx")

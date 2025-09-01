@@ -26,9 +26,9 @@ public interface Command {
         return new SequentialCommandGroup(this, next);
     }
 
-    /** Run this command, then a simple runnable. */
+    /** Run this command, then a simple Runnable. */
     default Command andThen(Runnable action) {
-        return new SequentialCommandGroup(this, new RunnableCommand(action));
+        return new SequentialCommandGroup(this, new RunnableCommand(action, () -> true));
     }
 
     /** Run this and another in parallel; both must finish. */
@@ -58,17 +58,17 @@ public interface Command {
 
     /** Run this command only if a condition is true. */
     default Command onlyIf(BooleanSupplier condition) {
-        return new ConditionalCommand(this, new RunnableCommand(() -> {}), condition);
+        return new ConditionalCommand(this, new RunnableCommand(() -> {}, () -> true), condition);
     }
 
     /** Run this command unless a condition is true. */
     default Command unless(BooleanSupplier condition) {
-        return new ConditionalCommand(new RunnableCommand(() -> {}), this, condition);
+        return new ConditionalCommand(new RunnableCommand(() -> {}, () -> true), this, condition);
     }
 
     /** Run this command with a timeout in seconds. */
     default Command withTimeout(double seconds) {
-        return new ParallelRaceGroup(this, new WaitCommand((long) seconds));
+        return new ParallelRaceGroup(this, new WaitCommand((long) (seconds * 1000))); // convert to ms if needed
     }
 
     /** Run this command, but interrupt if the condition becomes true. */
@@ -78,7 +78,7 @@ public interface Command {
 
     /** Run this command, then wait a fixed time before continuing. */
     default Command andThenWait(double seconds) {
-        return new SequentialCommandGroup(this, new WaitCommand((long) seconds));
+        return new SequentialCommandGroup(this, new WaitCommand((long) (seconds * 1000)));
     }
 
     /** Run this command, then wait until a condition is true. */

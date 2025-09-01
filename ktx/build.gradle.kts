@@ -3,6 +3,7 @@ import org.gradle.api.JavaVersion
 plugins {
     `maven-publish`
     id("com.android.library")
+    kotlin("android")
 }
 
 group = "dev.nullftc.commandkit"
@@ -13,13 +14,6 @@ android {
 
     defaultConfig {
         minSdk = 24
-    }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
     }
 
     buildTypes {
@@ -33,11 +27,19 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    testOptions {
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
         }
+    }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
     }
 
     namespace = "dev.nullftc.commandkit"
@@ -49,17 +51,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.ftc.inspection)
-    compileOnly(libs.ftc.blocks)
     compileOnly(libs.ftc.robotcore)
-    compileOnly(libs.ftc.server)
-    compileOnly(libs.ftc.obj)
-    compileOnly(libs.ftc.hw)
-    compileOnly(libs.ftc.common)
-    compileOnly(libs.ftc.vision)
-
-    compileOnly(libs.joml)
-    compileOnly(libs.gson)
+    compileOnly(project(":common"))
+    implementation(kotlin("stdlib"))
 }
 
 afterEvaluate {
@@ -73,7 +67,7 @@ afterEvaluate {
 
         publications {
             create("maven", MavenPublication::class.java) {
-                from(components.findByName("release"))
+                from(components["release"])
             }
         }
     }
